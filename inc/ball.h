@@ -1,17 +1,20 @@
 
 class Ball {
 
-    float ballRadius;
+    int winWidth;
+    int winHeight;
+
     int x;
     int y;
     int xVel;
     int yVel;
-    int winWidth;
-    int winHeight;
+    float ballRadius;
+    
 
     public:
-        Ball(int scrWidth, int scrHeight);
+        Ball();
         void update();
         void draw();
-
+        void bounce(); //bounce ball from paddle
+        Vector2 getPos();
 };
