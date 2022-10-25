@@ -2,8 +2,12 @@
 #include <player.h>
 #include <ball.h>
 
+//TODO
 //add paddle speed to ball speed?
 //game states?
+//use new keyword and deletes
+//change #include to use ""
+//inline functions?
 
 int main() {
 

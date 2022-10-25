@@ -1,2 +1,4 @@
 default:
-	g++ ../*.cpp -o build.exe -O2 -Wall -Wno-missing-braces -I ../inc/ -L ../lib/ -lraylib -lopengl32 -lgdi32 -lwinmm
+	g++ ../*.cpp -o build.exe -g -O2 -Wall -Wno-missing-braces -I ../inc/ -L ../lib/ -lraylib -lopengl32 -lgdi32 -lwinmm
+#debug:
+#	g++ ../*.cpp -o build.exe -O2 -Wall -Wno-missing-braces -I ../inc/ -L ../lib/ -lraylib -lopengl32 -lgdi32 -lwinmm

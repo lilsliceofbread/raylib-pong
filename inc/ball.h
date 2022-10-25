@@ -1,16 +1,14 @@
 
 class Ball {
+    private:
+        int winWidth;
+        int winHeight;
 
-    int winWidth;
-    int winHeight;
-
-    int x;
-    int y;
-    int xVel;
-    int yVel;
-    float ballRadius;
-    
-
+        int x;
+        int y;
+        int xVel;
+        int yVel;
+        float ballRadius;
     public:
         Ball();
         void update();
