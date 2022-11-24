@@ -9,7 +9,8 @@ class Player {
         int y;
         int yVel;
 
-        bool controls;
+        KeyboardKey m_up;
+        KeyboardKey m_down;
 
         //from center
         int paddleWidth; 

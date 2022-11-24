@@ -5,7 +5,9 @@ Player::Player(int startX, bool controlType) /*: ball(ball_)*/ {
     winWidth = GetScreenWidth();
     winHeight = GetScreenHeight();
 
-    controls = controlType;
+    //sets up and down keys
+    m_up = controlType ? KEY_UP : KEY_W;
+    m_down = controlType ? KEY_DOWN : KEY_S;
 
     x = startX;
     y = winHeight/2;
@@ -24,16 +26,16 @@ Player::Player(int startX, bool controlType) /*: ball(ball_)*/ {
 
 void Player::update() { 
     //check inputs
-    if(IsKeyDown(controls ? KEY_UP : 87)) {
+    if(IsKeyDown(m_up)) {
         yVel = -8; //up
-    } else if(IsKeyDown(controls ? KEY_DOWN : 83)) {
+    } else if(IsKeyDown(m_down)) {
         yVel = 8; //down
     } else {
-        yVel = 0;
+        yVel = 0; //stop if no key pressed
     }
     y = y + yVel; //update y
 
-    //constrain between scr height
+    //constrain within window
     if(y - paddleHeight/2 < 0) {
         y = paddleHeight/2;
     } else if(y + paddleHeight/2 > winHeight) {
@@ -48,11 +50,7 @@ void Player::update() {
 }
 
 bool Player::checkCollisions(Vector2 ballPos) {
-    if(CheckCollisionCircleRec(ballPos, 10.0f, paddleBox)) {
-        return true;
-    } else {
-        return false;
-    }
+    return CheckCollisionCircleRec(ballPos, 10.0f, paddleBox);
 }
 
 void Player::draw() {
