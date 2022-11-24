@@ -18,5 +18,6 @@ class Ball {
         void update();
         void draw();
         void bounce(); //bounce ball from paddle
+        void reset();
         Vector2 getPos();
 };

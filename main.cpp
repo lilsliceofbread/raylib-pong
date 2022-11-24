@@ -22,7 +22,9 @@ int main() {
     const int boxHeight = 50;
     const int dashSpace = 22;
 
-    std::string tempStr;
+    std::string tempStrL;
+    std::string tempStrR;
+    
 
     Vector2 ballPos;
 
@@ -40,8 +42,6 @@ int main() {
 
         ClearBackground(BLACK);
 
-        //get inputs w/s up/down arrow
-        //change bools based on that
         ballPos = ball->getPos();
         if(playerLeft->checkCollisions(ballPos) || playerRight->checkCollisions(ballPos)) {
             ball->bounce();
@@ -52,18 +52,19 @@ int main() {
         playerRight->update();
 
         //Player.getScore()
-        tempStr = std::to_string(ball->leftScore);
-        const char *c_leftScore = tempStr.c_str();
-        tempStr = std::to_string(ball->rightScore);
-        const char *c_rightScore = tempStr.c_str();
+        //figure out wtf was going on here
+        tempStrL = std::to_string(ball->leftScore);
+        tempStrR = std::to_string(ball->rightScore);
+        const char *c_leftScore = tempStrL.c_str();
+        const char *c_rightScore = tempStrR.c_str();
 
         BeginDrawing();
 
+            //make middle dashed line
             for(int i = 0; i * (boxHeight + dashSpace) <= scrHeight - boxHeight; i++) {
-                DrawRectangle(scrWidth/2 - boxWidth/2, i * (boxHeight + dashSpace), boxWidth, boxHeight, GRAY); //make middle dashed line
+                DrawRectangle(scrWidth/2 - boxWidth/2, i * (boxHeight + dashSpace), boxWidth, boxHeight, GRAY);
             }
 
-            std::cout << "main(): " << c_leftScore << std::endl;
             DrawText(c_leftScore, scrWidth/4, 50, 70, GRAY); 
             DrawText(c_rightScore, scrWidth - scrWidth/4, 50, 70, GRAY);
 
