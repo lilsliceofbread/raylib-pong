@@ -32,8 +32,9 @@ int main() {
 
     Ball *ball = new Ball();
     
-    Player *playerLeft = new Player(scrWidth/20); // this is so shit pls fix
-    Player *playerRight = new Player(scrWidth - scrWidth/20);
+    //choose player controls in 
+    Player *playerLeft = new Player(scrWidth/20, false); // this is so shit pls fix
+    Player *playerRight = new Player(scrWidth - scrWidth/20, true);
 
     ballPos = ball->getPos();
 

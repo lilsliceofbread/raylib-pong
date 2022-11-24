@@ -1,9 +1,11 @@
 #include <raylib.h>
 #include "player.hpp"
 
-Player::Player(int startX) /*: ball(ball_)*/ {
+Player::Player(int startX, bool controlType) /*: ball(ball_)*/ {
     winWidth = GetScreenWidth();
     winHeight = GetScreenHeight();
+
+    controls = controlType;
 
     x = startX;
     y = winHeight/2;
@@ -21,10 +23,10 @@ Player::Player(int startX) /*: ball(ball_)*/ {
 }
 
 void Player::update() { 
-    //check inputs  
-    if(IsKeyDown(87)) {
+    //check inputs
+    if(IsKeyDown(controls ? KEY_UP : 87)) {
         yVel = -8; //up
-    } else if(IsKeyDown(83)) {
+    } else if(IsKeyDown(controls ? KEY_DOWN : 83)) {
         yVel = 8; //down
     } else {
         yVel = 0;

@@ -9,13 +9,15 @@ class Player {
         int y;
         int yVel;
 
+        bool controls;
+
         //from center
         int paddleWidth; 
         int paddleHeight;
         Rectangle paddleBox;
 
     public:
-        Player(int startX);
+        Player(int startX, bool controlType);
         void update();
         void draw();
         int getScore();
