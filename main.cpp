@@ -1,6 +1,8 @@
+#include <string>
+#include <iostream>
 #include <raylib.h>
-#include <player.h>
-#include <ball.h>
+#include "player.hpp"
+#include "ball.hpp"
 
 //TODO
 //add paddle speed to ball speed?
@@ -8,6 +10,7 @@
 //use new keyword and deletes
 //change #include to use ""
 //inline functions?
+//use proper constructor initialisation
 
 int main() {
 
@@ -19,15 +22,18 @@ int main() {
     const int boxHeight = 50;
     const int dashSpace = 22;
 
-    bool playerLeftControl;
-    bool playerRightControl;
+    std::string tempStr;
 
-    Player playerLeft(scrWidth/20);
-    Player playerRight(scrWidth - scrWidth/20);
-
-    Ball ball;
+    Vector2 ballPos;
 
     InitWindow(scrWidth, scrHeight, "Pong");
+
+    Ball *ball = new Ball();
+    
+    Player *playerLeft = new Player(scrWidth/20); // this is so shit pls fix
+    Player *playerRight = new Player(scrWidth - scrWidth/20);
+
+    ballPos = ball->getPos();
 
     SetTargetFPS(60);
     while(!WindowShouldClose()) {
@@ -36,11 +42,20 @@ int main() {
 
         //get inputs w/s up/down arrow
         //change bools based on that
+        ballPos = ball->getPos();
+        if(playerLeft->checkCollisions(ballPos) || playerRight->checkCollisions(ballPos)) {
+            ball->bounce();
+        }
 
-        ball.update();
-        playerLeft.update(ball, playerLeftControl); 
-        playerRight.update(ball, playerRightControl);
+        ball->update();
+        playerLeft->update(); 
+        playerRight->update();
+
         //Player.getScore()
+        tempStr = std::to_string(ball->leftScore);
+        const char *c_leftScore = tempStr.c_str();
+        tempStr = std::to_string(ball->rightScore);
+        const char *c_rightScore = tempStr.c_str();
 
         BeginDrawing();
 
@@ -48,16 +63,21 @@ int main() {
                 DrawRectangle(scrWidth/2 - boxWidth/2, i * (boxHeight + dashSpace), boxWidth, boxHeight, GRAY); //make middle dashed line
             }
 
-            //draw score
+            std::cout << "main(): " << c_leftScore << std::endl;
+            DrawText(c_leftScore, scrWidth/4, 50, 70, GRAY); 
+            DrawText(c_rightScore, scrWidth - scrWidth/4, 50, 70, GRAY);
 
-            ball.draw();
-            playerLeft.draw();
-            playerRight.draw();
+            ball->draw();
+            playerLeft->draw();
+            playerRight->draw();
 
         EndDrawing();
 
     }
 
+    delete playerLeft;
+    delete playerRight;
+    delete ball;
     CloseWindow();
     return 0;
 

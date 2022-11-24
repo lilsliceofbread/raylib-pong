@@ -9,7 +9,11 @@ class Ball {
         int xVel;
         int yVel;
         float ballRadius;
+
     public:
+        int leftScore;
+        int rightScore;
+
         Ball();
         void update();
         void draw();

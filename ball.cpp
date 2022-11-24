@@ -2,10 +2,10 @@
 #include <stdlib.h> //rounding
 #include <time.h> //for round
 #include <iostream> //only for testing
+#include <string>//remove later
 #include <cmath> //round
 #include <algorithm> //clamp?
-
-#include <ball.h>
+#include "ball.hpp"
 
 //add check for goal
 
@@ -19,20 +19,22 @@ int randomSign() {
 }
 
 Ball::Ball() {
+    leftScore = 0;
+    rightScore = 0;
 
     ballRadius = 10.0f;
 
-    winWidth = GetScreenWidth();
+    winWidth = GetScreenWidth(); //this is the issue because initialised before screen is created therefore is 0
     winHeight = GetScreenHeight();
 
     int minVel = std::floor(winHeight/100);
     x = winWidth/2;
     y = winHeight/2;
+    std::cout << std::to_string(winWidth) << " " << std::to_string(winHeight) << std::endl;
 
     srand(time(NULL));
     xVel = rand() % 3 + minVel * randomSign(); //is this bad?
     yVel = rand() % 3 + minVel * randomSign();
-
 }
 
 void Ball::update() {
@@ -40,16 +42,19 @@ void Ball::update() {
     //invert velocity when hitting edges
     //ensure ball does not exceed edges and bounce in and out
     //remove x later (change game state?)
-    if(x < 0) {
+    if(x <= 0) { //left
         x = (int)ballRadius;
         xVel = xVel * -1;
-    } else if(x > winWidth) {
+        leftScore++;
+        std::cout << leftScore << std::endl;
+    } else if(x >= winWidth) { //right
         x = winWidth - (int)ballRadius;
         xVel = xVel * -1;
-    } else if(y < 0) {
+        //rightScore++;
+    } else if(y <= 0) { //up
         y = (int)ballRadius;
         yVel = yVel * -1;
-    } else if(y > winHeight) {
+    } else if(y >= winHeight) { //down
         y = winHeight - (int)ballRadius;
         yVel = yVel * -1;
     }

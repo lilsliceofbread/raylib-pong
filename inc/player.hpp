@@ -14,10 +14,10 @@ class Player {
         int paddleHeight;
         Rectangle paddleBox;
 
-        int score;
     public:
         Player(int startX);
-        void update(Ball& ball, bool upOrDown);
+        void update();
         void draw();
         int getScore();
+        bool checkCollisions(Vector2 ballPos);
 };
