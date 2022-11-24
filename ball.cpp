@@ -35,7 +35,7 @@ Ball::Ball() {
 
 void Ball::update() {
 
-    //invert velocity when hitting edges
+    //invert velocity when 
     //ensure ball does not exceed edges and bounce in and out
     //remove x later (change game state?)
     if(x <= 0) { //left - score for right
