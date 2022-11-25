@@ -33,7 +33,7 @@ int main() {
     Ball *ball = new Ball();
     
     //choose player controls in 
-    Player *playerLeft = new Player(scrWidth/20, false); // this is so shit pls fix
+    Player *playerLeft = new Player(scrWidth/20, false); 
     Player *playerRight = new Player(scrWidth - scrWidth/20, true);
 
     ballPos = ball->getPos();
@@ -53,7 +53,7 @@ int main() {
         playerRight->update();
 
         //Player.getScore()
-        //figure out wtf was going on here
+        //figure out what was going on here
         tempStrL = std::to_string(ball->leftScore);
         tempStrR = std::to_string(ball->rightScore);
         const char *c_leftScore = tempStrL.c_str();

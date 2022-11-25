@@ -35,9 +35,9 @@ Ball::Ball() {
 
 void Ball::update() {
 
-    //invert velocity when 
+    //invert velocity (bounce) when hitting walls
     //ensure ball does not exceed edges and bounce in and out
-    //remove x later (change game state?)
+    //score if ball hits left or right
     if(x <= 0) { //left - score for right
         rightScore++;
         xVel = xVel * -1;
@@ -65,7 +65,7 @@ void Ball::draw() {
 
 void Ball::bounce() {
     xVel = xVel * -1;
-    //resets x - scuffed but it works
+    //resets x - bad but works
     if(x > winWidth/2) {
         x = (winWidth - winWidth/20) - 12; //left side of right paddle
     } else {

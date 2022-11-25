@@ -1,7 +1,7 @@
 #include <raylib.h>
 #include "player.hpp"
 
-Player::Player(int startX, bool controlType) /*: ball(ball_)*/ {
+Player::Player(int startX, bool controlType)  {
     winWidth = GetScreenWidth();
     winHeight = GetScreenHeight();
 
