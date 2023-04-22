@@ -4,8 +4,6 @@
 #include <cmath> //round
 #include "ball.hpp"
 
-//add check for goal
-
 int randomSign() {
     srand(time(NULL));
     if(rand() % 10 <= 5) {
@@ -16,71 +14,68 @@ int randomSign() {
 }
 
 Ball::Ball() {
-    ballRadius = 10.0f;
+    m_ballRadius = 10.0f;
 
-    winWidth = GetScreenWidth(); //if initialised before screen is created it is null
-    winHeight = GetScreenHeight();
+    m_winWidth = GetScreenWidth(); //if initialised before screen is created it is null
+    m_winHeight = GetScreenHeight();
 
     leftScore = 0;
     rightScore = 0;
 
-    int minVel = std::floor(winHeight/100);
-    x = winWidth/2;
-    y = winHeight/2;
+    int minVel = std::floor(m_winHeight/100);
+    m_x = m_winWidth/2;
+    m_y = m_winHeight/2;
 
     srand(time(NULL));
-    xVel = rand() % 3 + minVel * randomSign(); //is this bad?
-    yVel = rand() % 3 + minVel * randomSign();
+    m_xVel = rand() % 3 + minVel * randomSign(); 
+    m_yVel = rand() % 3 + minVel * randomSign();
 }
 
 void Ball::update() {
 
-    //invert velocity (bounce) when hitting walls
-    //ensure ball does not exceed edges and bounce in and out
-    //score if ball hits left or right
-    if(x <= 0) { //left - score for right
+    if(m_x <= 0) { //left - score for right
         rightScore++;
-        xVel = xVel * -1;
+        m_xVel = m_xVel * -1;
         reset();
-    } else if(x >= winWidth) { //right - score for left
+    } else if(m_x >= m_winWidth) { //right - score for left
         leftScore++;
-        xVel = xVel * -1;
+        m_xVel = m_xVel * -1;
         reset();
-    } else if(y <= 0) { //up
-        y = (int)ballRadius;
-        yVel = yVel * -1;
-    } else if(y >= winHeight) { //down
-        y = winHeight - (int)ballRadius;
-        yVel = yVel * -1;
+    } else if(m_y <= 0) { //up
+        m_y = (int)m_ballRadius;
+        m_yVel = m_yVel * -1;
+    } else if(m_y >= m_winHeight) { //down
+        m_y = m_winHeight - (int)m_ballRadius;
+        m_yVel = m_yVel * -1;
     }
 
-    x = x + xVel;
-    y = y + yVel;
+    m_x = m_x + m_xVel;
+    m_y = m_y + m_yVel;
 
 }
 
 void Ball::draw() {
-    DrawCircle(x, y, ballRadius, RAYWHITE);
+    DrawCircle(m_x, m_y, m_ballRadius, RAYWHITE);
 }
 
 void Ball::bounce() {
-    xVel = xVel * -1;
-    //resets x - bad but works
-    if(x > winWidth/2) {
-        x = (winWidth - winWidth/20) - 12; //left side of right paddle
+    m_xVel = m_xVel * -1;
+    //resets m_x - bad but works
+    if(m_x > m_winWidth/2) {
+        m_x = (m_winWidth - m_winWidth/20) - 12; //left side of right paddle
     } else {
-        x = winWidth/20 + 12; //right side of left paddle
+        m_x = m_winWidth/20 + 12; //right side of left paddle
     }
 }
 
 void Ball::reset() {
-    x = winWidth/2;
-    y = winHeight/2;
+    m_x = m_winWidth/2;
+    m_y = m_winHeight/2;
 }
 
 Vector2 Ball::getPos() {
     Vector2 pos = {
-        (float)x, (float)y
+        (float)m_x, (float)m_y
     };
     return pos;
 }

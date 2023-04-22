@@ -2,57 +2,57 @@
 #include "player.hpp"
 
 Player::Player(int startX, bool controlType)  {
-    winWidth = GetScreenWidth();
-    winHeight = GetScreenHeight();
+    m_winWidth = GetScreenWidth();
+    m_winHeight = GetScreenHeight();
 
     //sets up and down keys
     m_up = controlType ? KEY_UP : KEY_W;
     m_down = controlType ? KEY_DOWN : KEY_S;
 
-    x = startX;
-    y = winHeight/2;
+    m_x = startX;
+    m_y = m_winHeight/2;
 
-    yVel = 0;
+    m_yVel = 0;
 
-    paddleWidth = 12;
-    paddleHeight = winHeight/8;
+    m_paddleWidth = 12;
+    m_paddleHeight = m_winHeight/8;
 
     //hitbox from height and width
-    Player::paddleBox = {
-        (float)(x - paddleWidth), (float)(y - paddleHeight),
-        (float)paddleWidth*2, (float)paddleHeight*2
+    m_paddleBox = {
+        (float)(m_x - m_paddleWidth), (float)(m_y - m_paddleHeight),
+        (float)m_paddleWidth*2, (float)m_paddleHeight*2
     };
 }
 
 void Player::update() { 
     //check inputs
     if(IsKeyDown(m_up)) {
-        yVel = -8; //up
+        m_yVel = -8; //up
     } else if(IsKeyDown(m_down)) {
-        yVel = 8; //down
+        m_yVel = 8; //down
     } else {
-        yVel = 0; //stop if no key pressed
+        m_yVel = 0; //stop if no key pressed
     }
-    y = y + yVel; //update y
+    m_y = m_y + m_yVel; //update y
 
     //constrain within window
-    if(y - paddleHeight/2 < 0) {
-        y = paddleHeight/2;
-    } else if(y + paddleHeight/2 > winHeight) {
-        y = winHeight - paddleHeight/2;
+    if(m_y - m_paddleHeight/2 < 0) {
+        m_y = m_paddleHeight/2;
+    } else if(m_y + m_paddleHeight/2 > m_winHeight) {
+        m_y = m_winHeight - m_paddleHeight/2;
     }
 
     //update hitbox
-    Player::paddleBox = {
-        (float)(x - paddleWidth/2), (float)(y - paddleHeight/2),
-        (float)paddleWidth, (float)paddleHeight
+    m_paddleBox = {
+        (float)(m_x - m_paddleWidth/2), (float)(m_y - m_paddleHeight/2),
+        (float)m_paddleWidth, (float)m_paddleHeight
     };
 }
 
 bool Player::checkCollisions(Vector2 ballPos) {
-    return CheckCollisionCircleRec(ballPos, 10.0f, paddleBox);
+    return CheckCollisionCircleRec(ballPos, 10.0f, m_paddleBox);
 }
 
 void Player::draw() {
-    DrawRectangleRec(paddleBox, RAYWHITE);
+    DrawRectangleRec(m_paddleBox, RAYWHITE);
 }

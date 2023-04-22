@@ -4,23 +4,15 @@
 #include "player.hpp"
 #include "ball.hpp"
 
-//TODO
-//add paddle speed to ball speed?
-//game states?
-//use new keyword and deletes
-//change #include to use ""
-//inline functions?
-//use proper constructor initialisation
-
 int main() {
 
-    const int scrWidth = 1280;
-    const int scrHeight = 720;
+    const int scrWidth = 1600;
+    const int scrHeight = 900;
 
     //for dashed line
-    const int boxWidth = 10;
-    const int boxHeight = 50;
-    const int dashSpace = 22;
+    const int boxWidth = 10;  //10
+    const int boxHeight = 40; //50
+    const int dashSpace = 20; //22
 
     std::string tempStrL;
     std::string tempStrR;
@@ -33,7 +25,7 @@ int main() {
     Ball *ball = new Ball();
     
     //choose player controls in 
-    Player *playerLeft = new Player(scrWidth/20, false); 
+    Player *playerLeft = new Player(scrWidth/20, false);
     Player *playerRight = new Player(scrWidth - scrWidth/20, true);
 
     ballPos = ball->getPos();
@@ -43,17 +35,15 @@ int main() {
 
         ClearBackground(BLACK);
 
+        ball->update();
+        playerLeft->update(); 
+        playerRight->update();
+
         ballPos = ball->getPos();
         if(playerLeft->checkCollisions(ballPos) || playerRight->checkCollisions(ballPos)) {
             ball->bounce();
         }
 
-        ball->update();
-        playerLeft->update(); 
-        playerRight->update();
-
-        //Player.getScore()
-        //figure out what was going on here
         tempStrL = std::to_string(ball->leftScore);
         tempStrR = std::to_string(ball->rightScore);
         const char *c_leftScore = tempStrL.c_str();

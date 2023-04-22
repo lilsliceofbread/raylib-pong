@@ -1,14 +1,14 @@
 
 class Ball {
     private:
-        int winWidth;
-        int winHeight;
+        int m_winWidth;
+        int m_winHeight;
 
-        int x;
-        int y;
-        int xVel;
-        int yVel;
-        float ballRadius;
+        int m_x;
+        int m_y;
+        int m_xVel;
+        int m_yVel;
+        float m_ballRadius;
 
     public:
         int leftScore;
