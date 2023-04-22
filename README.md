@@ -1,2 +1,2 @@
 # raylib-pong
-project to learn more basics of raylib
+creating pong in raylib to learn more of the basics
